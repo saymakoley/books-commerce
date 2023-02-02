@@ -1,13 +1,13 @@
 <template>
-    <main class="container grid grid-cols-3 gap-6 items-start">
+    <main class="container grid sm:grid-cols-3 gap-6 items-start w-full">
         <Sidebar />
 
-        <section class="flex flex-col justify-start col-span-2">
+        <section class="flex flex-col justify-start sm:col-span-2">
             <h2 class="text-lg">
                 Showing <strong>{{ books.length }}</strong> results
             </h2>
 
-            <div class="grid grid-cols-3 gap-6 w-full mt-8">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-8">
                 <div
                     v-for="(book, index) in books"
                     :key="index"

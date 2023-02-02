@@ -1,5 +1,5 @@
 <template>
-  <section class="rounded-xl shadow p-4 sticky top-28 h-auto">
+  <section class="rounded-xl shadow p-4 sm:sticky sm:top-28 h-auto">
     <FormKit type="search" placeholder="Search books..." suffix-icon="search" />
 
     <br>
