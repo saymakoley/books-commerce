@@ -1,20 +1,58 @@
 <template>
-  <main class="container grid grid-cols-3 gap-6">
+    <main class="container grid grid-cols-3 gap-6 items-start">
+        <Sidebar />
 
-    <Sidebar />
+        <section class="flex flex-col justify-start col-span-2">
+            <h2 class="text-lg">
+                Showing <strong>{{ books.length }}</strong> results
+            </h2>
 
-    <section>
-      <h1>Welcome to books</h1>
-    </section>
-  </main>
+            <div class="grid grid-cols-3 gap-6 w-full mt-8">
+                <div
+                    v-for="(book, index) in books"
+                    :key="index"
+                    class="flex flex-col rounded-lg shadow justify-between"
+                >
+                    <img
+                        class="w-full h-32 object-contain"
+                        src="/images/book-cover.jpeg"
+                        alt="To Kill a Mockingbird cover"
+                    />
+                    <div class="p-2">
+                        <div class="font-bold text-lg mb-2">
+                            {{ book.title }}
+                        </div>
+                        <div class="text-gray-700 mb-2">
+                            <strong>Author</strong>: {{ book.author }}
+                        </div>
+                        <div class="text-gray-700">
+                            <strong>Released</strong>: {{ book.release_date }}
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                      <button class="btn btn-sm btn-outline-primary w-full mt-4">
+                            Add to cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 </template>
 
 <script>
+import booksArray from "~/assets/books";
 export default {
+    setup() {
+        const books = reactive(booksArray);
 
-}
+        return {
+            books,
+        };
+    },
+};
 </script>
 
 <style>
-
 </style>
