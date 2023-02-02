@@ -1,6 +1,6 @@
 <template>
   <section class="rounded-xl shadow p-4">
-    <h4>Search for books</h4>
+    <FormKit type="search" />
     <h4>Filter for books</h4>
   </section>
 </template>
