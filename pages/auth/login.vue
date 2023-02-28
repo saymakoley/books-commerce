@@ -5,7 +5,7 @@
         >
             Sign in to your account
         </h1>
-        <FormKit type="form" :actions="false">
+        <FormKit type="form"  :actions="false" @submit="handleSubmit" #default="{ state: { valid } }">
             <FormKitMessages />
 
             <FormKit
@@ -63,5 +63,18 @@ export default {
     components: {
         FormKitMessages,
     },
+
+    setup() {
+        const router = useRouter()
+        const handleSubmit = () => {
+            // log user in
+
+            router.push('/')
+        }
+
+        return {
+            handleSubmit
+        }
+    }
 };
 </script>

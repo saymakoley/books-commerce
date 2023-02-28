@@ -11,6 +11,7 @@
             :form-class="submitted ? 'hide' : 'show'"
             @submit="handleSubmit"
             :actions="false"
+            #default="{ state: { valid } }"
         >
             <FormKitMessages />
 
@@ -80,18 +81,21 @@ export default {
         FormKitMessages,
     },
     setup() {
+        const router = useRouter()
         const submitted = ref(false);
-        const submitHandler = async (credentials) => {
+        const handleSubmit = async (credentials) => {
             // create user account
 
             console.log(credentials);
 
             submitted.value = true;
+
+            router.push('/')
         };
 
         return {
             submitted,
-            submitHandler,
+            handleSubmit,
         };
     },
 };
