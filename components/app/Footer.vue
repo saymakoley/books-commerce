@@ -1,5 +1,5 @@
 <template>
-  <footer class="container flex flex-col items-center justify-center pt-20">
+  <footer class="container flex flex-col items-center justify-center pt-20 pb-10">
     <img src="~/assets/svgs/logo.svg" alt="Books" class="w-28">
     <p>
       &copy; {{ (new Date()).getFullYear() }}. All Rights Reserved
