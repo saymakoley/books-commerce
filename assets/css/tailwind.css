@@ -9,7 +9,7 @@
 }
 
 .btn {
-    @apply font-normal rounded-lg transition duration-200 px-5 py-2 text-sm;
+    @apply font-normal rounded transition duration-200 px-5 py-2 text-sm;
 }
 
 .btn-sm {

@@ -5,8 +5,7 @@ import { genesisIcons } from '@formkit/icons'
 import genesis from '@formkit/themes/tailwindcss/genesis'
 
 const config: DefaultConfigOptions = {
-  locales: { fr },
-  locale: 'fr',
+  locale: 'en',
   icons: {
     ...genesisIcons,
   },
