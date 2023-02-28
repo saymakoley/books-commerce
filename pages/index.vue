@@ -8,10 +8,11 @@
             </h2>
 
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-8">
-                <div
+                <nuxt-link
                     v-for="(book, index) in books"
                     :key="index"
                     class="flex flex-col rounded-lg shadow justify-between"
+                    to="/book-details"
                 >
                     <img
                         class="w-full h-32 object-contain"
@@ -35,7 +36,7 @@
                             Add to cart
                         </button>
                     </div>
-                </div>
+                </nuxt-link>
             </div>
         </section>
     </main>

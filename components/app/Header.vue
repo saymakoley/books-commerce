@@ -6,7 +6,7 @@
         }"
     >
         <div class="container flex items-center justify-between w-full">
-            <img src="~/assets/svgs/logo.svg" alt="Books" class="w-32" />
+            <nuxt-link to="/"><img src="~/assets/svgs/logo.svg" alt="Books" class="w-32" /></nuxt-link>
 
             <div class="flex space-x-4 items-center pr-4 sm:pr-0">
                 <!-- auth for desktop -->

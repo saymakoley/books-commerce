@@ -14,7 +14,6 @@ export default [
     category: "Adventure",
     release_date: "October 18, 1851",
     image: "https://example.com/mobydick.jpg",
-    price: 10.99
   },
   {
     title: "One Hundred Years of Solitude",
