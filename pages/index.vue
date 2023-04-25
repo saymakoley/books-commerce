@@ -27,7 +27,7 @@
                             <strong>Author</strong>: {{ book.author }}
                         </div>
                         <div class="text-gray-700">
-                            <strong>Released</strong>: {{ book.release_date }}
+                            <strong>Released</strong>: {{ book.published_date }}
                         </div>
                     </div>
 

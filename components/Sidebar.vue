@@ -44,9 +44,9 @@
 
             <FormKit
                 type="select"
-                name="categories"
-                label="Filter by category"
-                :options="categories"
+                name="genres"
+                label="Filter by genres"
+                :options="genres"
             />
 
             <FormKit
@@ -71,12 +71,19 @@ import books from "~/assets/books";
 
 export default {
     setup() {
-        const categories = reactive([
-            ...new Set(books.map((book) => book.category)),
+        const genres = reactive([
+            ...new Set(books.map(
+                    (book) => book.genres !== 'none' 
+                            ? book.genres.split(',') 
+                            : ''
+                        )
+                        .flat()
+                        .sort()
+                    ),
         ]);
 
         const authors = reactive([
-            ...new Set(books.map((book) => book.author)),
+            ...new Set(books.map((book) => book.author).sort()),
         ]);
 
         const languages = reactive([
@@ -88,7 +95,7 @@ export default {
         const toggle = () => (open.value = !open.value);
 
         return {
-            categories,
+            genres,
             authors,
             languages,
             open,
