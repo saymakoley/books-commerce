@@ -1,4 +1,4 @@
-import { db } from '../../db'
+import { db } from '~/server/db'
 import { v4 as uuid } from 'uuid'
 import { sendError } from 'h3'
 
