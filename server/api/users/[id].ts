@@ -22,7 +22,7 @@ export default defineEventHandler(async (e) => {
         return { user, index }
     }
 
-    switch (e.req.method) {
+    switch (e.node.req.method) {
         case 'PUT': {
             const { id } = e.context.params
 
@@ -49,6 +49,13 @@ export default defineEventHandler(async (e) => {
             }
         }
 
-        default: {}
+        default: {
+            const badRequestErr = createError({
+                statusCode: 400,
+                statusMessage: "Route not found"
+            })
+
+            sendError(e, badRequestErr)
+        }
     }
 })
