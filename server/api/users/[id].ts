@@ -1,4 +1,4 @@
-import { User, db } from '~/server/db'
+import { db } from '~/server/db'
 import { sendError } from 'h3'
 
 export default defineEventHandler(async (e) => {
@@ -23,12 +23,12 @@ export default defineEventHandler(async (e) => {
     }
 
     switch (e.req.method) {
-        case 'PUT':
+        case 'PUT': {
             const { id } = e.context.params
 
             const { user, index } = findUserById(id)
 
-            const updatedUser: User = {
+            const updatedUser = {
                 ...user,
                 online: !user?.online,
             }
@@ -36,10 +36,19 @@ export default defineEventHandler(async (e) => {
             db.users[index] = updatedUser
 
             return updatedUser
-
-            break;
+        }
     
-        default:
-            break;
+        case 'DELETE': {
+            const { id } = e.context.params
+
+            const { index } = findUserById(id)
+            db.users.splice(index, 1)
+
+            return {
+                message: 'User deleted'
+            }
+        }
+
+        default: {}
     }
 })
