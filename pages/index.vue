@@ -1,6 +1,13 @@
 <template>
     <main class="container grid sm:grid-cols-3 gap-6 items-start w-full">
-        <Sidebar />
+        <Sidebar
+            :genres="genres"
+            :authors="authors"
+            :languages="languages"
+            :genre="genre"
+            :author="author"
+            :language="language"
+        />
 
         <section class="flex flex-col justify-start sm:col-span-2">
             <h2 class="text-lg">
@@ -26,13 +33,19 @@
                         <div class="text-gray-700 mb-2">
                             <strong>Author</strong>: {{ book.author }}
                         </div>
-                        <div class="text-gray-700">
+                        <div class="text-gray-700 mb-2">
                             <strong>Released</strong>: {{ book.published_date }}
+                        </div>
+                        <div class="text-gray-700">
+                            <strong>Pages</strong>:
+                            <strong>{{ book.page_count }}</strong> pages
                         </div>
                     </div>
 
                     <div class="p-2">
-                      <button class="btn btn-sm btn-outline-primary w-full mt-4">
+                        <button
+                            class="btn btn-sm btn-outline-primary w-full mt-4"
+                        >
                             Add to cart
                         </button>
                     </div>
@@ -43,13 +56,43 @@
 </template>
 
 <script>
-import booksArray from "~/assets/books";
 export default {
-    setup() {
-        const books = reactive(booksArray);
+    async setup() {
+        const genre = ref("");
+        const author = ref("");
+        const language = ref("");
+
+        const response = await $fetch("/api/books");
+
+        const books = reactive(response.data);
+
+        const genres = reactive([
+            ...new Set(
+                books
+                    .map((book) =>
+                        book.genres !== "none" ? book.genres.split(",") : ""
+                    )
+                    .flat()
+                    .sort()
+            ),
+        ]);
+
+        const authors = reactive([
+            ...new Set(books.map((book) => book.author).sort()),
+        ]);
+
+        const languages = reactive([
+            ...new Set(books.map((book) => book.language)),
+        ]);
 
         return {
+            genre,
+            author,
+            language,
             books,
+            genres,
+            authors,
+            languages,
         };
     },
 };

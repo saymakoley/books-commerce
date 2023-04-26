@@ -43,6 +43,7 @@
             <br />
 
             <FormKit
+                v-if="genres"
                 type="select"
                 name="genres"
                 label="Filter by genres"
@@ -67,37 +68,39 @@
 </template>
 
 <script>
-import books from "~/assets/books";
-
 export default {
+    props: {
+        genres: {
+            type: [Object, Array],
+            required: true
+        },
+        authors: {
+            type: [Object, Array],
+            required: true
+        },
+        languages: {
+            type: [Object, Array],
+            required: true
+        },
+        genre: {
+            type: String,
+            required: true,
+        },
+        author: {
+            type: String,
+            required: true,
+        },
+        language: {
+            type: String,
+            required: true,
+        },
+    },          
     setup() {
-        const genres = reactive([
-            ...new Set(books.map(
-                    (book) => book.genres !== 'none' 
-                            ? book.genres.split(',') 
-                            : ''
-                        )
-                        .flat()
-                        .sort()
-                    ),
-        ]);
-
-        const authors = reactive([
-            ...new Set(books.map((book) => book.author).sort()),
-        ]);
-
-        const languages = reactive([
-            ...new Set(books.map((book) => book.language)),
-        ]);
-
         const open = ref(true);
 
         const toggle = () => (open.value = !open.value);
 
         return {
-            genres,
-            authors,
-            languages,
             open,
             toggle,
         };

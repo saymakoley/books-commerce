@@ -14,8 +14,6 @@ export default defineEventHandler(async (e) => {
 
     const query = new URLSearchParams(url?.substring(url?.indexOf('?')))
 
-    console.log(query)
-
     const page = Number(query.get('page')) || 1;
     const perPage = Number(query.get('per_page')) || 10;
     const search = query.get('search')?.trim() || ''
