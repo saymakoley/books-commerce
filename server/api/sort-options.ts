@@ -5,6 +5,7 @@ interface SortOptions {
 
 export default defineEventHandler( async (e) => {
     const sortOptions: SortOptions[] = [
+      { value: '', label: 'Default' },
         { value: 'title-asc', label: 'Alphabetic (A-Z)' },
         { value: 'title-desc', label: 'Alphabetic (Z-A)' },
         { value: 'price-asc', label: 'Price (Low to High)' },

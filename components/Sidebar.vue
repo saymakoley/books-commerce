@@ -1,10 +1,10 @@
 <template>
-    <section class="rounded-xl shadow p-4 sm:sticky sm:top-28 h-auto">
+    <section class="rounded-xl shadow p-4 sm:sticky sm:top-28 h-auto sm:max-h-[570px] overflow-y-scroll">
         <FormKit
             type="search"
             placeholder="Search books..."
             suffix-icon="search"
-            v-model="search"
+            v-model.lazy="search"
         />
 
         <button
@@ -72,30 +72,37 @@ export default {
     props: {
         sortOptions: {
             type: [Object, Array],
-            required: true
-        },  
+            required: true,
+        },
         genres: {
             type: [Object, Array],
-            required: true
-        },  
+            required: true,
+        },
         authors: {
             type: [Object, Array],
-            required: true
+            required: true,
         },
         languages: {
             type: [Object, Array],
-            required: true
+            required: true,
         },
-    },          
-    setup() {
+    },
+    setup(props, { emit }) {
         const open = ref(true);
 
-        const search = ref("")
-        const sortBy = ref("publish_date-desc")
+        const search = ref("");
+        const sortBy = ref("");
         const genre = ref("");
         const author = ref("");
         const language = ref("");
 
+        watch([search, sortBy, genre, author, language], () => {
+            emit("updateSearch", search.value);
+            emit("updateSortby", sortBy.value);
+            emit("updateGenre", genre.value);
+            emit("updateAuthor", author.value);
+            emit("updateLanguage", language.value);
+        });
 
         const toggle = () => (open.value = !open.value);
 

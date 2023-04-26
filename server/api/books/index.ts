@@ -41,8 +41,7 @@ export default defineEventHandler(async (e) => {
 
             if (search) {
                 const searchTerm = search.toLowerCase();
-                if (!book.title.toLowerCase().includes(searchTerm) &&
-                    !book.description.toLowerCase().includes(searchTerm)) {
+                if (!book.title.toLowerCase().includes(searchTerm)) {
                     valid = false;
                 }
             }
