@@ -20,6 +20,7 @@ export default defineEventHandler(async (e) => {
     const genre = query.get('genre')?.trim() || ''
     const author = query.get('author')?.trim() || ''
     const language = query.get('language')?.trim() || ''
+    const sort = query.get('sort') || 'published_date-desc';
 
     if (method === 'GET') {
         // Apply filters
@@ -47,6 +48,23 @@ export default defineEventHandler(async (e) => {
             }
 
             return valid;
+        });
+
+        // Apply sorting
+        const [sortBy, sortDirection] = sort.split('-');
+        filteredBooks.sort((a, b) => {
+            switch (sortBy) {
+                case 'title':
+                    return sortDirection === 'asc' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title);
+                case 'price':
+                    return sortDirection === 'asc' ? a.price - b.price : b.price - a.price;
+                case 'rating':
+                    return sortDirection === 'asc' ? a.rating - b.rating : b.rating - a.rating;
+                case 'published_date':
+                    return sortDirection === 'asc' ? Date.parse(a.published_date) - Date.parse(b.published_date) : Date.parse(b.published_date) - Date.parse(a.published_date);
+                default:
+                    return 0;
+            }
         });
 
         // Calculate pagination

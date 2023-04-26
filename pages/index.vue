@@ -1,12 +1,10 @@
 <template>
     <main class="container grid sm:grid-cols-3 gap-6 items-start w-full">
         <Sidebar
+            :sortOptions="sortOptions"
             :genres="genres"
             :authors="authors"
             :languages="languages"
-            :genre="genre"
-            :author="author"
-            :language="language"
         />
 
         <section class="flex flex-col justify-start sm:col-span-2">
@@ -66,6 +64,8 @@ export default {
 
         const books = reactive(response.data);
 
+        const sortOptions = await $fetch('/api/sort-options')
+
         const genres = await $fetch("/api/genres");
 
         const authors = await $fetch("/api/authors");
@@ -73,10 +73,8 @@ export default {
         const languages = await $fetch("/api/languages");
 
         return {
-            genre,
-            author,
-            language,
             books,
+            sortOptions,
             genres,
             authors,
             languages,

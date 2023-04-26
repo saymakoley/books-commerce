@@ -4,6 +4,7 @@
             type="search"
             placeholder="Search books..."
             suffix-icon="search"
+            v-model="search"
         />
 
         <button
@@ -32,12 +33,8 @@
             <FormKit
                 type="radio"
                 label="Sort books by"
-                :options="[
-                    'Alphabetical (A-Z)',
-                    'Alphabetical (Z-A)',
-                    'Newest',
-                    'Oldest',
-                ]"
+                :options="sortOptions"
+                v-model="sortBy"
             />
 
             <br />
@@ -70,10 +67,14 @@
 <script>
 export default {
     props: {
+        sortOptions: {
+            type: [Object, Array],
+            required: true
+        },  
         genres: {
             type: [Object, Array],
             required: true
-        },
+        },  
         authors: {
             type: [Object, Array],
             required: true
@@ -81,18 +82,6 @@ export default {
         languages: {
             type: [Object, Array],
             required: true
-        },
-        genre: {
-            type: String,
-            required: true,
-        },
-        author: {
-            type: String,
-            required: true,
-        },
-        language: {
-            type: String,
-            required: true,
         },
     },          
     setup() {
