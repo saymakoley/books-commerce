@@ -31,7 +31,7 @@ export default defineEventHandler(async (e) => {
         }
 
         case 'GET': {
-            return db.books
+            return db.users
         }
 
         default: {

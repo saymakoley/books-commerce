@@ -23,6 +23,14 @@ export default defineEventHandler(async (e) => {
     }
 
     switch (e.node.req.method) {
+        case 'GET': {
+            const { id } = e.context.params
+
+            const { user } = findUserById(id)
+
+            return user
+        }
+
         case 'PUT': {
             const { id } = e.context.params
 
