@@ -1,7 +1,7 @@
 import { db } from '~/server/db'
 import { sendError } from 'h3'
 
-export default defineEventHandler(async (e) => {
+export default defineEventHandler(async (event) => {
     const findUserById = (tid: string) => {
         let index: number = 0;
 
@@ -16,15 +16,15 @@ export default defineEventHandler(async (e) => {
                 statusMessage: 'User not found'
             })
 
-            sendError(e, notFoundError)
+            sendError(event, notFoundError)
         }
 
         return { user, index }
     }
 
-    switch (e.node.req.method) {
+    switch (event.node.req.method) {
         case 'GET': {
-            const { id } = e.context.params
+            const { id } = event.context.params
 
             const { user } = findUserById(id)
 
@@ -32,7 +32,7 @@ export default defineEventHandler(async (e) => {
         }
 
         case 'PUT': {
-            const { id } = e.context.params
+            const { id } = event.context.params
 
             const { user, index } = findUserById(id)
 
@@ -47,7 +47,7 @@ export default defineEventHandler(async (e) => {
         }
     
         case 'DELETE': {
-            const { id } = e.context.params
+            const { id } = event.context.params
 
             const { index } = findUserById(id)
             db.users.splice(index, 1)
@@ -63,7 +63,7 @@ export default defineEventHandler(async (e) => {
                 statusMessage: "Route not found"
             })
 
-            sendError(e, badRequestErr)
+            sendError(event, badRequestErr)
         }
     }
 })

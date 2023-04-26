@@ -24,14 +24,19 @@
                     <nuxt-link
                         v-for="(book, index) in books"
                         :key="index"
-                        class="flex flex-col rounded-lg shadow justify-between"
-                        to="/book-details"
+                        class="flex flex-col rounded-lg space-y-3 shadow justify-between"
+                        :to="`/${book.title}`"
                     >
                         <img
                             class="w-full h-32 object-contain"
                             src="/images/book-cover.jpeg"
                             alt="To Kill a Mockingbird cover"
                         />
+
+                        <div class="flex items-center justify-center">
+            <Rating :rating="book.rating" size="w-5 h-5" />
+        </div>
+
                         <div class="p-2">
                             <div
                                 class="flex justify-between items-center space-x-4"
