@@ -25,8 +25,13 @@
                         alt="To Kill a Mockingbird cover"
                     />
                     <div class="p-2">
-                        <div class="font-bold text-lg mb-2">
-                            {{ book.title }}
+                        <div
+                            class="flex justify-between items-center space-x-4"
+                        >
+                            <h4 class="font-bold text-lg mb-2">
+                                {{ book.title }}
+                            </h4>
+                            <p class="font-italic">{{ $convertPrice(book).price }}</p>
                         </div>
                         <div class="text-gray-700 mb-2">
                             <strong>Author</strong>: {{ book.author }}
@@ -64,7 +69,7 @@ export default {
 
         const books = reactive(response.data);
 
-        const sortOptions = await $fetch('/api/sort-options')
+        const sortOptions = await $fetch("/api/sort-options");
 
         const genres = await $fetch("/api/genres");
 
