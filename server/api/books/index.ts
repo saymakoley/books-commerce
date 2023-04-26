@@ -20,7 +20,7 @@ export default defineEventHandler(async (e) => {
     const genre = query.get('genre')?.trim() || ''
     const author = query.get('author')?.trim() || ''
     const language = query.get('language')?.trim() || ''
-    const sort = query.get('sort') || 'published_date-desc';
+    const sort = query.get('sort') || '';
 
     if (method === 'GET') {
         // Apply filters

@@ -26,7 +26,7 @@ const priceFilter: Plugin = (context, inject) => {
       book.currency = 'GBP';
     }
 
-    book.price = parseFloat(book.price.toFixed(2));
+    book.price = parseFloat(book.price?.toFixed(2));
     book.price = book.price.toLocaleString('en-GB', {
       style: 'currency',
       currency: 'GBP',

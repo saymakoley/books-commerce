@@ -12,7 +12,7 @@
                 Showing <strong>{{ books.length }}</strong> results
             </h2>
 
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full mt-8">
                 <nuxt-link
                     v-for="(book, index) in books"
                     :key="index"
@@ -31,17 +31,26 @@
                             <h4 class="font-bold text-lg mb-2">
                                 {{ book.title }}
                             </h4>
-                            <p class="font-italic">{{ $convertPrice(book).price }}</p>
+                            <p class="font-italic">
+                                {{ $convertPrice(book).price }}
+                            </p>
+                        </div>
+                        <div class="text-gray-600 mb-2">
+                            <span>{{ book.author }}</span>
+                            <span class="mx-2">|</span>
+                            <span>{{ book.published_date }}</span>
                         </div>
                         <div class="text-gray-700 mb-2">
-                            <strong>Author</strong>: {{ book.author }}
+                            <strong>Genres</strong>:
+                            {{ book.genres }}
                         </div>
-                        <div class="text-gray-700 mb-2">
-                            <strong>Released</strong>: {{ book.published_date }}
-                        </div>
-                        <div class="text-gray-700">
-                            <strong>Pages</strong>:
-                            <strong>{{ book.page_count }}</strong> pages
+                        <div class="text-gray-600 mb-2">
+                            <span>{{ book.language }}</span>
+                            <span class="mx-2">|</span>
+                            <span
+                                ><strong>{{ book.page_count }}</strong>
+                                pages</span
+                            >
                         </div>
                     </div>
 
@@ -61,10 +70,6 @@
 <script>
 export default {
     async setup() {
-        const genre = ref("");
-        const author = ref("");
-        const language = ref("");
-
         const response = await $fetch("/api/books");
 
         const books = reactive(response.data);

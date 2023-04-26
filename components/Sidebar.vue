@@ -45,6 +45,7 @@
                 name="genres"
                 label="Filter by genres"
                 :options="genres"
+                v-model="genre"
             />
 
             <FormKit
@@ -52,6 +53,7 @@
                 name="author"
                 label="Filter by author"
                 :options="authors"
+                v-model="author"
             />
 
             <FormKit
@@ -59,6 +61,7 @@
                 name="languages"
                 label="Filter by language"
                 :options="languages"
+                v-model="language"
             />
         </div>
     </section>
@@ -87,10 +90,22 @@ export default {
     setup() {
         const open = ref(true);
 
+        const search = ref("")
+        const sortBy = ref("publish_date-desc")
+        const genre = ref("");
+        const author = ref("");
+        const language = ref("");
+
+
         const toggle = () => (open.value = !open.value);
 
         return {
             open,
+            search,
+            sortBy,
+            genre,
+            author,
+            language,
             toggle,
         };
     },
