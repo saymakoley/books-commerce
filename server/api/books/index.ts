@@ -15,7 +15,7 @@ export default defineEventHandler(async (e) => {
     const query = new URLSearchParams(url?.substring(url?.indexOf('?')))
 
     const page = Number(query.get('page')) || 1;
-    const perPage = Number(query.get('per_page')) || 10;
+    const perPage = Number(query.get('per_page')) || 30;
     const search = query.get('search')?.trim() || ''
     const genre = query.get('genre')?.trim() || ''
     const author = query.get('author')?.trim() || ''
