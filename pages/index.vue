@@ -66,24 +66,11 @@ export default {
 
         const books = reactive(response.data);
 
-        const genres = reactive([
-            ...new Set(
-                books
-                    .map((book) =>
-                        book.genres !== "none" ? book.genres.split(",") : ""
-                    )
-                    .flat()
-                    .sort()
-            ),
-        ]);
+        const genres = await $fetch("/api/genres");
 
-        const authors = reactive([
-            ...new Set(books.map((book) => book.author).sort()),
-        ]);
+        const authors = await $fetch("/api/authors");
 
-        const languages = reactive([
-            ...new Set(books.map((book) => book.language)),
-        ]);
+        const languages = await $fetch("/api/languages");
 
         return {
             genre,
