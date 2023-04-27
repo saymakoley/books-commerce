@@ -1,0 +1,1 @@
+export const useCart = () => useState<Array<Object>>('cart', () => [])

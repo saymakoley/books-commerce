@@ -34,8 +34,8 @@
                         />
 
                         <div class="flex items-center justify-center">
-            <Rating :rating="book.rating" size="w-5 h-5" />
-        </div>
+                            <Rating :rating="book.rating" size="w-5 h-5" />
+                        </div>
 
                         <div class="p-2">
                             <div
@@ -69,6 +69,8 @@
 
                         <div class="p-2">
                             <button
+                            v-if="!isItemInCart(book)"
+                                @click.prevent="addBookToCart(book)"
                                 class="btn btn-sm btn-outline-primary w-full mt-4"
                             >
                                 Add to cart
@@ -148,6 +150,8 @@ export default {
         });
         const books = ref();
 
+        const cart = useCart().value;
+
         const sortOptions = await $fetch("/api/sort-options");
         const genres = await $fetch("/api/genres");
         const authors = await $fetch("/api/authors");
@@ -174,6 +178,15 @@ export default {
             (queryParams.value.language = value);
         const setCurrentPage = (value: number) =>
             (queryParams.value.page = value);
+
+        const addBookToCart = (book) => {
+            const cartItem = !!isItemInCart(book);
+            if (!cartItem) {
+                cart.push({ ...book, quantity: 1 });
+            }
+        };
+
+        const isItemInCart = (book) => cart.find((item) => book.id === item.id)
 
         await getBooks("/api/books?per_page=40");
 
@@ -206,6 +219,8 @@ export default {
             filterBooksByAuthor,
             filterBooksByLanguage,
             setCurrentPage,
+            addBookToCart,
+            isItemInCart
         };
     },
 };

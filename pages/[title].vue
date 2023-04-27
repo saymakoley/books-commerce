@@ -29,10 +29,18 @@
                     {{ $convertPrice(book).price }}
                 </p>
                 <button
+                    v-if="!isBookInCart"
                     class="btn btn-primary"
-                    @click="addToCart"
+                    @click.prevent="addToCart()"
                 >
-                    Add to Cart
+                    Add to cart
+                </button>
+                <button
+                v-else
+                    class="btn btn-outline-primary"
+                    @click.prevent="removeFromCart()"
+                >
+                    Remove from cart
                 </button>
             </div>
         </div>
@@ -51,25 +59,23 @@ export default {
         const route = useRoute()
 
         const book = ref()
-        const cartItems = ref([]);
+
+        const cart = useCart().value;
 
         const addToCart = () => {
-            const existingItem = cartItems.value.find(
-                (item) => item.id === props.book.id
-            );
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                cartItems.value.push({
-                    ...props.book,
-                    quantity: 1,
-                });
+            const cartItem = cart.find((item) => book.id === item.id);
+            if (!cartItem) {
+                cart.push({ ...book, quantity: 1 });
             }
         };
 
-        const removeItem = (index) => {
-            cartItems.value.splice(index, 1);
+        const removeFromCart = () => {
+            const index = cart.findIndex(item => book.id === item.id)
+
+            cart.splice(index, 1);
         };
+
+        const isBookInCart = computed(() => cart.find((item) => book.id === item.id))
 
         onMounted(async () => {
             const title = route.params.title
@@ -79,9 +85,10 @@ export default {
 
         return {
             book,
-            cartItems,
+            cart,
             addToCart,
-            removeItem,
+            removeFromCart,
+            isBookInCart
         };
     },
 };
