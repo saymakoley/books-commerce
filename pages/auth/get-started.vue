@@ -82,19 +82,19 @@ export default {
     },
     setup() {
         const router = useRouter()
-        const submitted = ref(false);
+
         const handleSubmit = async (credentials) => {
             // create user account
 
-            console.log(credentials);
-
-            submitted.value = true;
+            await $fetch('/api/users', {
+                method: 'POST',
+                body: credentials
+            })
 
             router.push('/')
         };
 
         return {
-            submitted,
             handleSubmit,
         };
     },

@@ -6,13 +6,12 @@ export default defineEventHandler(async (e) => {
 
     switch (e.node.req.method) {
         case 'POST': {
-            console.log(e)
-            const body = await useBody(e)
+            const body = await readBody(e)
 
-            if (!body.name) {
+            if (!body.email) {
                 const badRequestErr = createError({
                     statusCode: 400,
-                    statusMessage: "Name property not found"
+                    statusMessage: "Email property not found"
                 })
 
                 sendError(e, badRequestErr)
@@ -20,13 +19,18 @@ export default defineEventHandler(async (e) => {
 
             const newUser = {
                 id: uuid(),
-                name: body.name,
+                name: body.name || 'N/A',
                 email: body.email,
                 password: body.password,
                 online: true,
             }
 
             db.users.push(newUser)
+
+            useStorage().setItem('users', db.users)
+
+            useStorage().setItem('user', newUser)
+
             return newUser
         }
 

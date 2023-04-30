@@ -59,15 +59,20 @@ definePageMeta({
     layout: "auth",
 });
 
-export default {
+export default{
     components: {
         FormKitMessages,
     },
 
     setup() {
         const router = useRouter()
-        const handleSubmit = () => {
+        const handleSubmit = async (credentials) => {
             // log user in
+
+            const response = await $fetch('/api/users', {
+                method: 'POST',
+                body: credentials
+            })
 
             router.push('/')
         }

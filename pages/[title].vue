@@ -21,7 +21,7 @@
                     {{ book.language }}
                 </div>
                 <p><strong>by:</strong> {{ book.author }}</p>
-                <p>{{ book.genres.split(',').join('•') }}</p>
+                <p><strong>Genres:</strong> {{ book.genres.split(',').join('•') }}</p>
             </div>
 
             <div class="text-right">
